@@ -1,12 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter, HashRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+// import { Provider } from
+import App from './container/App';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import configStore from './stores';
+import "antd/dist/antd.css";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+/**
+ * 创建store
+ */
+console.log('创建store')
+const store = configStore();
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function Index() {
+    console.log('匹配路由')
+	return (
+		<Provider store={store}>
+			<HashRouter>
+				<Route path="/" component={App} />
+			</HashRouter>
+		</Provider> 
+	);
+}
+
+ReactDOM.render(<Index />, document.getElementById('root'));
